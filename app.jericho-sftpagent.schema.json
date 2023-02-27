@@ -33,6 +33,12 @@
           "KeyPassword": {
             "description": "Password for the private key.",
             "type": "string"
+          },
+          "ClientType": {
+            "description": "Client which will be used for connection to remote server.",
+            "type": "string",
+            "enum": [ "Rebex", "Ssh.net" ],
+            "default": "Rebex"
           }
         },
         "required": [
