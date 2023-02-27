@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Settings for sFTP agent",
+  "type": "object",
+  "properties": {
+    "Accesses": {
+      "title": "Dictionary of access models; one model per unique remote (s)FTP server.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "Host": {
+            "title": "Host name or IP of the remote (s)FTP server.",
+            "type": "string"
+          },
+          "UserName": {
+            "title": "User name used for log in into the remote server.",
+            "type": "string"
+          },
+          "UserPassword": {
+            "title": "User password used for log in; less-secured authentication.",
+            "type": "string"
+          },
+          "KeyName": {
+            "title": "Name of the private key in the Azure Key Vault.",
+            "type": "string"
+          },
+          "KeyBase64": {
+            "title": "Full private key encoded in base64.",
+            "type": "string"
+          },
+          "KeyPassword": {
+            "title": "Password for the private key.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "Host",
+          "UserName"
+        ]
+      }
+    },
+    "InRules": {
+      "title": "Dictionary of download/import rules; the key should be same as 'Kind' property of a schedule.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "AccessKey": {
+            "title": "Link to access model.",
+            "type": "string"
+          },
+          "SourceFilters": {
+            "title": "Array of source file filters; can contain * or _ wildcard characters.",
+            "type": "array",
+            "items": [
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "DestinationFolder": {
+            "title": "Folder or path where the content will be placed in the import container.",
+            "type": "string"
+          },
+          "IsOverwriteAllowed": {
+            "title": "Enables or disables the overriding of content on the import container.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "AccessKey",
+          "SourceFilters",
+          "DestinationFolder"
+        ]
+      }
+    },
+    "OutRules": {
+      "title": "Dictionary of upload/export rules; key should be same as the root folder of the export container.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "AccessKey": {
+            "title": "Link to access model.",
+            "type": "string"
+          },
+          "DestinationFolder": {
+            "title": "Destination folder as prefix for target path of the content of the remote server.",
+            "type": "string"
+          },
+          "IsOverwriteAllowed": {
+            "title": "Enables or disables the overriding of content on the remote server.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "AccessKey"
+        ]
+      }
+    }
+  },
+  "required": [
+    "Accesses",
+    "InRules",
+    "OutRules"
+  ]
+}
+
